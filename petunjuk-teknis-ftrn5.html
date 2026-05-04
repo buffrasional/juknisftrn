@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petunjuk Teknis — FTRN #5 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-900: #1a3a2a;
+      --green-800: #1e4d35;
+      --green-700: #276749;
+      --green-600: #2f855a;
+      --green-500: #38a169;
+      --green-400: #48bb78;
+      --green-300: #68d391;
+      --green-200: #9ae6b4;
+      --green-100: #c6f6d5;
+      --green-50:  #f0fff4;
+      --cream:     #f7faf5;
+      --sand:      #faf6f0;
+      --text-dark: #1a2e23;
+      --text-body: #374a3f;
+      --text-muted:#5f7a6b;
+      --white:     #ffffff;
+      --border:    #d4e8d9;
+      --shadow:    rgba(26, 58, 42, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--text-body);
+      line-height: 1.75;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* ========== BOTANICAL SVG PATTERNS (temu-taut vine accents) ========== */
+    .vine-accent {
+      position: absolute;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .vine-accent svg { width: 100%; height: 100%; }
+
+    /* ========== LEAF PARTICLES (removed for minimalism) ========== */
+
+    /* ========== HERO — minimal cover ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--green-900);
+    }
+
+    /* soft organic glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      background: radial-gradient(circle, rgba(56,161,105,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      padding: 2rem;
+    }
+
+    /* thin top-line ornament */
+    .hero-ornament {
+      width: 32px;
+      height: 2px;
+      background: var(--green-400);
+      border-radius: 2px;
+      margin: 0 auto 2.25rem;
+      opacity: 0.6;
+    }
+
+    .hero-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--green-300);
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-theme {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.15rem, 2.8vw, 1.6rem);
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.38);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+    .hero-meta strong {
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+    }
+    .hero-meta .sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--green-400);
+      opacity: 0.35;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 0.55rem;
+    }
+
+    /* scroll hint */
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      color: rgba(255,255,255,0.18);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-scroll svg {
+      width: 16px; height: 16px;
+      stroke: currentColor;
+      animation: gentleBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* ========== TEMU-TAUT BOTANICAL DIVIDER ========== */
+    .botanical-divider {
+      position: relative;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    .botanical-divider svg {
+      width: 280px;
+      height: 80px;
+      opacity: 0.5;
+    }
+    .botanical-divider.green svg { color: var(--green-500); }
+    .botanical-divider.dark svg { color: var(--green-800); }
+
+    /* ========== NAVIGATION ========== */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 250, 245, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav-bar.scrolled {
+      box-shadow: 0 4px 30px var(--shadow);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--green-800);
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--green-700);
+      background: var(--green-50);
+    }
+
+    /* ========== CONTENT CONTAINER ========== */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ========== SECTION STYLES ========== */
+    .section {
+      padding: 3.5rem 0;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .section-number {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--green-600), var(--green-700));
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(39, 103, 73, 0.25);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green-900);
+      line-height: 1.3;
+      padding-top: 0.35rem;
+    }
+    .section-title-line {
+      width: 40px;
+      height: 3px;
+      background: var(--green-400);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+
+    /* ========== INTRODUCTION / PROSE ========== */
+    .prose {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--text-body);
+    }
+    .prose p {
+      margin-bottom: 1.25rem;
+      text-align: justify;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose .highlight {
+      background: linear-gradient(180deg, transparent 55%, rgba(72, 187, 120, 0.18) 55%);
+      font-weight: 500;
+    }
+
+    /* ========== INFO CARDS ========== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .info-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--green-400), var(--green-600));
+      border-radius: 0 4px 4px 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .info-card:hover {
+      box-shadow: 0 8px 30px var(--shadow);
+      transform: translateY(-2px);
+    }
+    .info-card:hover::before { opacity: 1; }
+
+    .info-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      color: var(--green-600);
+    }
+    .info-card-icon svg { width: 20px; height: 20px; }
+
+    .info-card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .info-card-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ========== SASARAN (TARGET LIST) ========== */
+    .target-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .target-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      transition: all 0.25s ease;
+    }
+    .target-item:hover {
+      border-color: var(--green-300);
+      box-shadow: 0 4px 16px var(--shadow);
+    }
+    .target-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--green-50);
+      border: 1px solid var(--green-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green-700);
+    }
+    .target-text {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      padding-top: 0.2rem;
+    }
+
+    /* ========== VISION MISSION ========== */
+    .vm-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .vm-section {
+      padding: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .vm-section:last-child { border-bottom: none; }
+    .vm-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-800);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .vm-label .vm-icon {
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--green-500), var(--green-600));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vm-label .vm-icon svg { width: 14px; height: 14px; stroke: white; }
+
+    .vm-text {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      padding-left: 2.25rem;
+    }
+
+    .misi-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .misi-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+    .misi-list li .misi-check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--green-50);
+      border: 1px solid var(--green-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+    }
+    .misi-list li .misi-check svg { width: 12px; height: 12px; stroke: var(--green-600); }
+
+    /* ========== RULES / KETENTUAN ========== */
+    .rule-group {
+      margin-bottom: 2.5rem;
+    }
+    .rule-group:last-child { margin-bottom: 0; }
+
+    .rule-group-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--green-800);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .rule-group-title::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 3px;
+      background: var(--green-500);
+      flex-shrink: 0;
+    }
+
+    .rule-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.65rem;
+    }
+    .rule-list li {
+      position: relative;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      transition: all 0.2s ease;
+    }
+    .rule-list li:hover {
+      border-color: var(--green-300);
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .rule-list li .rule-num {
+      position: absolute;
+      top: -0.4rem;
+      left: 1rem;
+      background: var(--white);
+      padding: 0 0.4rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--green-600);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ========== NASKAH LIST ========== */
+    .naskah-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .naskah-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .naskah-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .naskah-card:hover {
+      border-color: var(--green-300);
+      box-shadow: 0 4px 16px var(--shadow);
+      transform: translateY(-1px);
+    }
+    .naskah-emoji {
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--green-50), var(--green-100));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .naskah-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+    .naskah-author {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ========== PENILAIAN TABLE ========== */
+    .penilaian-cards {
+      display: grid;
+      gap: 1rem;
+    }
+    .penilaian-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .penilaian-header {
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, var(--green-700), var(--green-800));
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .penilaian-header svg { width: 16px; height: 16px; stroke: currentColor; opacity: 0.8; }
+    .penilaian-items {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem 1.25rem;
+      gap: 0.6rem;
+    }
+    .penilaian-item {
+      flex: 1 1 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.85rem;
+      background: var(--green-50);
+      border-radius: 10px;
+      border: 1px solid var(--green-100);
+    }
+    .penilaian-item-label {
+      font-size: 0.8rem;
+      color: var(--text-body);
+      font-weight: 500;
+    }
+    .penilaian-item-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-700);
+    }
+
+    /* ========== AWARD GRID ========== */
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .award-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+    .award-item:hover {
+      border-color: var(--green-300);
+      box-shadow: 0 4px 16px var(--shadow);
+      transform: translateY(-2px);
+    }
+    .award-item.gold { border-color: #d4a843; }
+    .award-item.silver { border-color: #a0aec0; }
+    .award-item.bronze { border-color: #c5845b; }
+    .award-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .award-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact-section {
+      background: linear-gradient(165deg, var(--green-800), var(--green-900));
+      color: var(--white);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 400px 400px at 20% 50%, rgba(72, 187, 120, 0.1), transparent),
+        radial-gradient(ellipse 400px 400px at 80% 50%, rgba(104, 211, 145, 0.06), transparent);
+    }
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-subtitle {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .contact-cards {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      min-width: 200px;
+      transition: all 0.25s ease;
+    }
+    .contact-card:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+    .contact-name {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-300);
+      margin-bottom: 0.4rem;
+    }
+    .contact-phone {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--green-900);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    /* ========== INLINE CALLOUT ========== */
+    .callout {
+      background: var(--green-50);
+      border: 1px solid var(--green-200);
+      border-left: 4px solid var(--green-500);
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--text-body);
+      margin: 1rem 0;
+    }
+    .callout strong { color: var(--green-800); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2.6rem; }
+      .hero-theme { font-size: 1.1rem; }
+      .section { padding: 2.5rem 0; }
+      .section-title { font-size: 1.3rem; }
+      .award-grid { grid-template-columns: 1fr 1fr; }
+      .contact-cards { flex-direction: column; align-items: center; }
+    }
+
+    /* ========== SCROLL ANIMATION ========== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== NOTE TEXT ========== */
+    .note-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+
+    /* ========== PILL TAG ========== */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--green-50);
+      border: 1px solid var(--green-200);
+      color: var(--green-700);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-ornament"></div>
+      <p class="hero-label">Petunjuk Teknis</p>
+      <h1>FTRN #5</h1>
+      <div class="hero-meta">
+        <span><strong>3 &ndash; 8 Agustus 2026</strong></span>
+        <span><span class="sep"></span>ISI Yogyakarta<span class="sep"></span></span>
+        <span>Pkl. 14.00 &ndash; selesai</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ==================== NAV ==================== -->
+  <nav class="nav-bar" id="navBar">
+    <div class="nav-inner">
+      <div class="nav-logo">FTRN #5</div>
+      <div class="nav-links">
+        <a href="#pendahuluan">Pendahuluan</a>
+        <a href="#sasaran">Sasaran</a>
+        <a href="#waktu">Waktu &amp; Tempat</a>
+        <a href="#tujuan">Tujuan</a>
+        <a href="#ketentuan">Ketentuan Umum</a>
+        <a href="#pelaksanaan">Pelaksanaan</a>
+        <a href="#kontak">Kontak</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== A. PENDAHULUAN ==================== -->
+    <section class="section" id="pendahuluan">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">A</div>
+          <div>
+            <h2 class="section-title">Pendahuluan</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+        <div class="prose">
+          <p>
+            Festival teater ini hadir sebagai <span class="highlight">ruang bagi remaja untuk membangun kembali kesadaran akan lingkungan dan nilai-nilai budaya lokal</span> yang mulai luntur. Remaja masa kini hidup dalam ekosistem budaya yang berkembang pesat dan mempengaruhi cara berpikir, berekspresi, serta berinteraksi. Penyempitan ruang apresiasi seni, khususnya teater, menandakan terganggunya keseimbangan hubungan manusia dengan lingkungan sosial dan kulturalnya.
+          </p>
+          <p>
+            Festival teater ini dihadirkan sebagai ruang pemulihan ekosistem budaya melalui pendekatan <span class="highlight">eco theatre</span>, yang memandang teater bukan sekadar pertunjukan, melainkan ruang hidup bersama untuk membangun kesadaran ekologis, keberlanjutan nilai, serta relasi yang selaras antara manusia, budaya, dan lingkungannya di tengah arus digital yang terus berubah.
+          </p>
+          <p>
+            Atas dasar pemikiran tersebut, kami bermaksud melaksanakan kegiatan yang dikemas dalam <span class="highlight">FTRN #5 2026</span> mengangkat tema <strong>&ldquo;Temu Taut&rdquo;</strong> dengan harapan menjadi ruang bertemu dan bertaut bagi remaja dari berbagai daerah untuk saling mengenal, bertukar gagasan, serta mempertemukan keberagaman budaya Nusantara dalam satu panggung teater.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTANICAL DIVIDER -->
+    <div class="botanical-divider green">
+      <svg viewBox="0 0 280 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <path d="M140 80 C140 80 100 60 60 65 C20 70 10 40 30 20 C50 0 80 15 100 35 C110 45 130 55 140 60 C150 55 170 45 180 35 C200 15 230 0 250 20 C270 40 260 70 220 65 C180 60 140 80 140 80Z" fill="currentColor" opacity="0.08"/>
+        <path d="M140 70 Q90 50 50 55"/>
+        <path d="M140 70 Q190 50 230 55"/>
+        <path d="M80 52 Q70 38 75 28" />
+        <path d="M200 52 Q210 38 205 28" />
+        <circle cx="140" cy="65" r="3" fill="currentColor" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <!-- ==================== B. SASARAN ==================== -->
+    <section class="section" id="sasaran">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">B</div>
+          <div>
+            <h2 class="section-title">Sasaran Kegiatan</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+        <div class="target-list">
+          <div class="target-item">
+            <div class="target-num">1</div>
+            <div class="target-text">Pelajar Sekolah Menengah Atas se-Indonesia</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">2</div>
+            <div class="target-text">Kelompok Teater se-Indonesia</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">3</div>
+            <div class="target-text">Asrama Daerah Mahasiswa di D.I. Yogyakarta</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">4</div>
+            <div class="target-text">Civitas Akademika Kampus ISI Yogyakarta</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">5</div>
+            <div class="target-text">Lembaga/Sanggar Kesenian yang tersebar di D.I. Yogyakarta</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">6</div>
+            <div class="target-text">Masyarakat Umum agar dapat mengenal kesenian Teater lebih dekat</div>
+          </div>
+          <div class="target-item">
+            <div class="target-num">7</div>
+            <div class="target-text">Perusahaan/Instansi yang berpartisipasi sebagai sponsor</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== C. WAKTU & TEMPAT ==================== -->
+    <section class="section" id="waktu">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">C</div>
+          <div>
+            <h2 class="section-title">Waktu &amp; Tempat</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="info-card-label">Hari / Tanggal</div>
+            <div class="info-card-value">Senin &ndash; Sabtu<br><strong>3 &ndash; 8 Agustus 2026</strong></div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="info-card-label">Waktu</div>
+            <div class="info-card-value">Pkl. <strong>14.00</strong> s/d Selesai</div>
+          </div>
+          <div class="info-card" style="grid-column: 1 / -1;">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="info-card-label">Tempat</div>
+            <div class="info-card-value">
+              Jurusan Teater, Fakultas Seni Pertunjukan<br>
+              <strong>Institut Seni Indonesia (ISI) Yogyakarta</strong><br>
+              Jl. Parangtritis Km. 6,5, Glondong, Panggungharjo, Kec. Sewon,<br>
+              Kabupaten Bantul, D.I. Yogyakarta 55188
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== D. TUJUAN (VISI & MISI) ==================== -->
+    <section class="section" id="tujuan">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">D</div>
+          <div>
+            <h2 class="section-title">Tujuan Pelaksanaan</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+        <div class="vm-block">
+          <!-- VISI -->
+          <div class="vm-section">
+            <div class="vm-label">
+              <span class="vm-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              Visi
+            </div>
+            <div class="vm-text">
+              Membentuk insan seni Indonesia yang inovatif dan memiliki daya cipta tinggi dalam dunia teater.
+            </div>
+          </div>
+          <!-- MISI -->
+          <div class="vm-section">
+            <div class="vm-label">
+              <span class="vm-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>
+              Misi
+            </div>
+            <ul class="misi-list" style="margin-top: 0.5rem;">
+              <li>
+                <span class="misi-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg></span>
+                <span>Menyelenggarakan kompetisi teater remaja tingkat SMA/sederajat yang berskala nasional dengan menerapkan standar penilaian profesional.</span>
+              </li>
+              <li>
+                <span class="misi-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg></span>
+                <span>Memfasilitasi ruang belajar dan diskusi bersama seniman untuk mendorong eksplorasi pementasan teater yang inovatif di kalangan peserta.</span>
+              </li>
+              <li>
+                <span class="misi-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg></span>
+                <span>Menciptakan lingkungan interaksi antar-peserta.</span>
+              </li>
+              <li>
+                <span class="misi-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg></span>
+                <span>Menyediakan kegiatan pendukung yang menekankan pada disiplin teater.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTANICAL DIVIDER -->
+    <div class="botanical-divider green">
+      <svg viewBox="0 0 280 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <path d="M0 40 Q70 20 140 40 Q210 60 280 40" stroke-dasharray="4 4"/>
+        <path d="M100 35 Q95 20 100 10" />
+        <path d="M110 37 Q115 22 110 12" />
+        <path d="M170 43 Q165 28 170 18" />
+        <path d="M180 41 Q185 26 180 16" />
+        <circle cx="140" cy="40" r="4" fill="currentColor" opacity="0.2"/>
+        <circle cx="100" cy="8" r="3" fill="currentColor" opacity="0.15"/>
+        <circle cx="110" cy="10" r="2.5" fill="currentColor" opacity="0.15"/>
+        <circle cx="170" cy="16" r="3" fill="currentColor" opacity="0.15"/>
+        <circle cx="180" cy="14" r="2.5" fill="currentColor" opacity="0.15"/>
+      </svg>
+    </div>
+
+    <!-- ==================== F. KETENTUAN UMUM ==================== -->
+    <section class="section" id="ketentuan">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">F</div>
+          <div>
+            <h2 class="section-title">Ketentuan Umum Peserta Lomba</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+
+        <!-- 1. PENDAFTARAN ADMINISTRASI -->
+        <div class="rule-group">
+          <h3 class="rule-group-title">1. Pendaftaran Administrasi</h3>
+          <ul class="rule-list">
+            <li>
+              <span class="rule-num">Wajib</span>
+              Peserta diwajibkan mengisi <strong>Surat Pernyataan kesanggupan</strong> berupa perizinan mengikuti rangkaian kegiatan FTRN #5 dengan bermaterai <strong>Rp 10.000,00</strong> yang diketahui oleh Pembina Teater dan di-upload dalam Google Form.
+            </li>
+            <li>
+              <span class="rule-num">Wajib</span>
+              Peserta wajib mengisi formulir identitas dengan format surat yang sudah disediakan panitia.
+            </li>
+            <li>
+              <span class="rule-num">Biaya</span>
+              Membayar administrasi pendaftaran sebesar <strong>Rp 250.000,- / kelompok</strong> dengan fasilitas sebagai berikut:
+            </li>
+          </ul>
+
+          <div style="margin-top: 0.75rem; display: grid; gap: 0.6rem; padding-left: 0.5rem;">
+            <div class="callout">
+              <strong>Fasilitas yang didapatkan:</strong><br>
+              &#10003; Seminar online tentang materi keaktoran dengan seniman profesional (maks. 10 orang/kelompok)<br>
+              &#10003; E-Sertifikat sebagai peserta FTRN #5
+            </div>
+          </div>
+
+          <ul class="rule-list" style="margin-top: 0.75rem;">
+            <li>
+              <span class="rule-num">Upload</span>
+              Mengunggah bukti transfer administrasi peserta dalam Google Form pendaftaran.
+            </li>
+            <li>
+              <span class="rule-num">Upload</span>
+              Mengunggah CV kelompok dalam Google Form pendaftaran.
+            </li>
+            <li>
+              <span class="rule-num">Berkas</span>
+              Setiap kelompok wajib mengisi berkas pendaftaran dari panitia yang dapat diunduh melalui link drive yang disediakan.
+            </li>
+            <li>
+              <span class="rule-num">Deadline</span>
+              Batas pengumpulan persyaratan dan pembayaran administrasi paling lambat pada <strong style="color: var(--green-700);">Tanggal 18 Mei 2026</strong>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2. PENDAFTARAN KARYA -->
+        <div class="rule-group">
+          <h3 class="rule-group-title">2. Pendaftaran Karya</h3>
+
+          <div class="callout" style="margin-bottom: 1rem;">
+            <strong>Deadline karya:</strong> Paling lambat <strong>4 Juni 2026</strong> dengan catatan sudah menyelesaikan administrasi.
+          </div>
+
+          <p style="font-size: 0.88rem; font-weight: 600; color: var(--green-800); margin-bottom: 0.75rem;">Peserta wajib memilih salah satu naskah berikut:</p>
+          <div class="naskah-grid">
+            <div class="naskah-card">
+              <div class="naskah-emoji">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </div>
+              <div>
+                <div class="naskah-title">Makan Malam</div>
+                <div class="naskah-author">Karya Aziz Azthar</div>
+              </div>
+            </div>
+            <div class="naskah-card">
+              <div class="naskah-emoji">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </div>
+              <div>
+                <div class="naskah-title">Tuhan Tolong Bunuh Emak</div>
+                <div class="naskah-author">Karya Yessy Natalia</div>
+              </div>
+            </div>
+            <div class="naskah-card">
+              <div class="naskah-emoji">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </div>
+              <div>
+                <div class="naskah-title">Penumpang Asing</div>
+                <div class="naskah-author">Karya Julia Arungan</div>
+              </div>
+            </div>
+            <div class="naskah-card">
+              <div class="naskah-emoji">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </div>
+              <div>
+                <div class="naskah-title">Panen Anak</div>
+                <div class="naskah-author">Karya Manik Sukadana</div>
+              </div>
+            </div>
+          </div>
+          <p class="note-text">* Pilihan naskah akan dikirimkan melalui email kepada kelompok yang sudah melakukan registrasi.</p>
+
+          <ul class="rule-list" style="margin-top: 1.25rem;">
+            <li>
+              <span class="rule-num">Fragmen</span>
+              Peserta diperbolehkan untuk memilih <strong>Fragmen naskah</strong> tanpa merubah konteks naskah.
+            </li>
+            <li>
+              <span class="rule-num">Video</span>
+              Peserta mengunggah karya berbentuk video dengan resolusi <strong>minimal 720p</strong>, durasi karya maksimal <strong>10 menit</strong> ke dalam YouTube dan mengumpulkan link melalui email <strong>ftrn@students.isi.ac.id</strong>.
+            </li>
+            <li>
+              <span class="rule-num">Audio</span>
+              Audio dari video harus <strong>terdengar jelas</strong>.
+            </li>
+            <li>
+              <span class="rule-num">Hak Cipta</span>
+              Peserta dilarang menggunakan aset yang <strong>melanggar hak cipta</strong>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- 3. KRITERIA PENILAIAN -->
+        <div class="rule-group">
+          <h3 class="rule-group-title">3. Kriteria Penilaian</h3>
+          <div class="penilaian-cards">
+            <div class="penilaian-card">
+              <div class="penilaian-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                Tahap Online
+              </div>
+              <div class="penilaian-items">
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Keaktoran</span>
+                  <span class="penilaian-item-value">65%</span>
+                </div>
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Penyutradaraan</span>
+                  <span class="penilaian-item-value">20%</span>
+                </div>
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Artistik</span>
+                  <span class="penilaian-item-value">15%</span>
+                </div>
+              </div>
+            </div>
+            <div class="penilaian-card">
+              <div class="penilaian-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Tahap Final
+              </div>
+              <div class="penilaian-items">
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Keaktoran</span>
+                  <span class="penilaian-item-value">35%</span>
+                </div>
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Penyutradaraan</span>
+                  <span class="penilaian-item-value">25%</span>
+                </div>
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Unsur Panggung</span>
+                  <span class="penilaian-item-value">15%</span>
+                </div>
+                <div class="penilaian-item">
+                  <span class="penilaian-item-label">Dramaturgi</span>
+                  <span class="penilaian-item-value">25%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="note-text">* Unsur Panggung meliputi: Artistik, Lighting, Make-up, Kostum, Musik</p>
+        </div>
+
+        <!-- 4. KEJUARAAN -->
+        <div class="rule-group">
+          <h3 class="rule-group-title">4. Kejuaraan, Pengumuman &amp; Penerimaan Penghargaan</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">Berdasarkan penilaian dewan juri akan diambil:</p>
+          <div class="award-grid">
+            <div class="award-item gold">
+              <div class="award-icon">&#127942;</div>
+              <div class="award-label">Juara 1</div>
+            </div>
+            <div class="award-item silver">
+              <div class="award-icon">&#129351;</div>
+              <div class="award-label">Juara 2</div>
+            </div>
+            <div class="award-item bronze">
+              <div class="award-icon">&#129352;</div>
+              <div class="award-label">Juara 3</div>
+            </div>
+            <div class="award-item">
+              <div class="award-icon">&#127917;</div>
+              <div class="award-label">Aktris Terbaik</div>
+            </div>
+            <div class="award-item">
+              <div class="award-icon">&#127917;</div>
+              <div class="award-label">Aktor Terbaik</div>
+            </div>
+            <div class="award-item">
+              <div class="award-icon">&#127912;</div>
+              <div class="award-label">Artistik Terbaik</div>
+            </div>
+            <div class="award-item">
+              <div class="award-icon">&#127916;</div>
+              <div class="award-label">Sutradara Terbaik</div>
+            </div>
+            <div class="award-item">
+              <div class="award-icon">&#127924;</div>
+              <div class="award-label">Skenografi Terbaik</div>
+            </div>
+          </div>
+          <div class="callout" style="margin-top: 1.25rem;">
+            Keputusan dewan juri bersifat <strong>mutlak</strong> dan dapat dipertanggungjawabkan. Pengumuman pemenang, pemberian piagam penghargaan, dan penyerahan piala dilaksanakan pada <strong>hari terakhir festival teater</strong>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== G. KETENTUAN PELAKSANAAN ==================== -->
+    <section class="section" id="pelaksanaan">
+      <div class="container fade-up">
+        <div class="section-header">
+          <div class="section-number">G</div>
+          <div>
+            <h2 class="section-title">Ketentuan Pelaksanaan</h2>
+            <div class="section-title-line"></div>
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li>
+            <span class="rule-num">Peserta</span>
+            Peserta yang mengikuti FTRN #5 2026 adalah peserta yang telah <strong>lolos tahap Seleksi Online</strong> FTRN #5 2026.
+          </li>
+          <li>
+            <span class="rule-num">Status</span>
+            Peserta merupakan siswa-siswi yang masih berstatus sebagai <strong>siswa aktif</strong>.
+          </li>
+          <li>
+            <span class="rule-num">Kontingen</span>
+            Panitia hanya menanggung fasilitas <strong>10 orang</strong> dari setiap kontingen.
+          </li>
+          <li>
+            <span class="rule-num">Durasi</span>
+            Durasi pertunjukan maksimal <strong>60 menit</strong> dan setting Up maksimal <strong>45 menit</strong>.
+          </li>
+          <li>
+            <span class="rule-num">Naskah</span>
+            Peserta membawakan naskah yang <strong>sama dengan naskah</strong> yang digunakan saat kurasi.
+          </li>
+          <li>
+            <span class="rule-num">Pemain</span>
+            Apabila ada pergantian pemain maka <strong>skors dalam penilaian di aspek keaktoran akan dikurangi 50%</strong>.
+          </li>
+          <li>
+            <span class="rule-num">Bentuk</span>
+            Bentuk pertunjukan adalah <strong>Teater Realis</strong>.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="contact-section" id="kontak">
+    <div class="contact-inner">
+      <p class="hero-label" style="color: var(--green-300);">Hubungi Kami</p>
+      <h2 class="contact-title">Informasi Lebih Lanjut</h2>
+      <p class="contact-subtitle">Jika ada pertanyaan seputar FTRN #5 2026, silakan hubungi panitia melalui kontak berikut:</p>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-name">Lita</div>
+          <div class="contact-phone">0857-0754-2986</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Suci</div>
+          <div class="contact-phone">0819-0476-0612</div>
+        </div>
+      </div>
+      <div style="margin-top: 2rem;">
+        <span class="pill" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: var(--green-300);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          ftrn@students.isi.ac.id
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    Festival Teater Remaja Nusantara #5 &mdash; Institut Seni Indonesia Yogyakarta &mdash; 2026
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // === NAV SCROLL SHADOW ===
+    const navBar = document.getElementById('navBar');
+    window.addEventListener('scroll', () => {
+      navBar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // === ACTIVE NAV LINK ===
+    const sections = document.querySelectorAll('.section[id], .contact-section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const observerNav = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const id = entry.target.id;
+          const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observerNav.observe(s));
+
+    // === SCROLL FADE-UP ===
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observerFade = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observerFade.observe(el));
+
+    // === SMOOTH SCROLL FOR NAV ===
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          const offset = navBar.offsetHeight + 16;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

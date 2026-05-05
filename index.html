@@ -784,6 +784,196 @@
       margin-top: 0.75rem;
     }
 
+    /* ========== FLOATING PDF BUTTON ========== */
+    .pdf-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--green-700), var(--green-800));
+      color: var(--white);
+      border: none;
+      border-radius: 14px;
+      padding: 0.85rem 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(30, 77, 53, 0.35);
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    .pdf-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(30, 77, 53, 0.45);
+      background: linear-gradient(135deg, var(--green-600), var(--green-700));
+    }
+    .pdf-btn:active {
+      transform: translateY(-1px);
+    }
+    .pdf-btn svg {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+    }
+    .pdf-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+    .pdf-btn.loading .btn-text { display: none; }
+    .pdf-btn .btn-loading { display: none; }
+    .pdf-btn.loading .btn-loading { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .pdf-btn.loading .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .pdf-btn-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 58, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .pdf-btn-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ========== PDF MODE STYLES ========== */
+    body.pdf-mode .hero,
+    body.pdf-mode .nav-bar,
+    body.pdf-mode .hero-scroll,
+    body.pdf-mode .botanical-divider,
+    body.pdf-mode .contact-section,
+    body.pdf-mode .footer,
+    body.pdf-mode .pdf-btn,
+    body.pdf-mode .pdf-btn-overlay {
+      display: none !important;
+    }
+    body.pdf-mode {
+      background: white;
+      color: #1a2e23;
+    }
+    body.pdf-mode .section {
+      padding: 1.5rem 0;
+      page-break-inside: avoid;
+    }
+    body.pdf-mode .rule-group,
+    body.pdf-mode .penilaian-card,
+    body.pdf-mode .naskah-card,
+    body.pdf-mode .info-card {
+      page-break-inside: avoid;
+    }
+    body.pdf-mode .container {
+      max-width: 100%;
+      padding: 0;
+    }
+    body.pdf-mode .section-header {
+      margin-bottom: 1rem;
+    }
+    body.pdf-mode .prose p {
+      text-align: left;
+    }
+    body.pdf-mode .info-card,
+    body.pdf-mode .target-item,
+    body.pdf-mode .rule-list li,
+    body.pdf-mode .naskah-card,
+    body.pdf-mode .penilaian-item,
+    body.pdf-mode .award-item,
+    body.pdf-mode .contact-card {
+      box-shadow: none;
+      border: 1px solid #d4e8d9;
+    }
+    body.pdf-mode .fade-up {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* PDF Cover Page */
+    .pdf-cover {
+      display: none;
+    }
+    body.pdf-mode .pdf-cover {
+      display: block;
+      text-align: center;
+      padding: 3rem 0 2rem;
+      page-break-after: always;
+    }
+    .pdf-cover .cover-ornament {
+      width: 40px;
+      height: 3px;
+      background: var(--green-500);
+      border-radius: 2px;
+      margin: 0 auto 1.5rem;
+    }
+    .pdf-cover .cover-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--green-600);
+      margin-bottom: 0.75rem;
+    }
+    .pdf-cover .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--green-900);
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+    .pdf-cover .cover-theme {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--green-600);
+      margin-bottom: 2rem;
+    }
+    .pdf-cover .cover-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .pdf-cover .cover-meta strong {
+      color: var(--text-dark);
+    }
+
+    /* PDF Footer on every page */
+    .pdf-page-footer {
+      display: none;
+    }
+    body.pdf-mode .pdf-page-footer {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .pdf-btn {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        padding: 0.75rem 1.15rem;
+        font-size: 0.8rem;
+        border-radius: 12px;
+      }
+      .pdf-btn .btn-label-full { display: none; }
+    }
+
     /* ========== PILL TAG ========== */
     .pill {
       display: inline-flex;
@@ -800,6 +990,20 @@
   </style>
 </head>
 <body>
+
+  <!-- ==================== PDF COVER (hidden in web, shown in PDF) ==================== -->
+  <div class="pdf-cover">
+    <div class="cover-ornament"></div>
+    <p class="cover-label">Petunjuk Teknis</p>
+    <h1 class="cover-title">FTRN #5</h1>
+    <p class="cover-theme">Temu Taut</p>
+    <div class="cover-meta">
+      <strong>Festival Teater Remaja Nusantara #5</strong><br>
+      Agustus 2026<br>
+      Himpunan Mahasiswa Jurusan Teater<br>
+      Institut Seni Indonesia (ISI) Yogyakarta
+    </div>
+  </div>
 
   <!-- ==================== HERO ==================== -->
   <section class="hero">
@@ -1315,10 +1519,29 @@
     </div>
   </section>
 
+  <!-- ==================== PDF PAGE FOOTER (shown in PDF only) ==================== -->
+  <div class="pdf-page-footer">FTRN #5 2026 &mdash; Petunjuk Teknis &mdash; Festival Teater Remaja Nusantara</div>
+
   <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
     Festival Teater Remaja Nusantara #5 &mdash; Institut Seni Indonesia Yogyakarta &mdash; 2026
   </footer>
+
+  <!-- ==================== FLOATING PDF BUTTON ==================== -->
+  <div class="pdf-btn-overlay" id="pdfOverlay"></div>
+  <button class="pdf-btn" id="pdfBtn" title="Download PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="12" y1="18" x2="12" y2="12"/>
+      <polyline points="9 15 12 18 15 15"/>
+    </svg>
+    <span class="btn-text"><span class="btn-label-full">Download </span>PDF</span>
+    <span class="btn-loading"><span class="spinner"></span> Membuat PDF...</span>
+  </button>
+
+  <!-- html2pdf.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
@@ -1365,6 +1588,54 @@
           window.scrollTo({ top, behavior: 'smooth' });
         }
       });
+    });
+
+    // === PDF GENERATION ===
+    const pdfBtn = document.getElementById('pdfBtn');
+    const pdfOverlay = document.getElementById('pdfOverlay');
+
+    pdfBtn.addEventListener('click', async () => {
+      pdfBtn.classList.add('loading');
+      pdfOverlay.classList.add('active');
+
+      // Wait for fonts to be ready
+      await document.fonts.ready;
+
+      // Small delay to let overlay render
+      await new Promise(r => setTimeout(r, 100));
+
+      const element = document.body;
+
+      const opt = {
+        margin:       [12, 14, 16, 14],
+        filename:     'Juknis-FTRN5-2026.pdf',
+        image:        { type: 'jpeg', quality: 0.95 },
+        html2canvas:  {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollY: 0,
+          windowWidth: 900
+        },
+        jsPDF:        {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait'
+        },
+        pagebreak:    { mode: ['css', 'legacy'], before: '.section' }
+      };
+
+      try {
+        document.body.classList.add('pdf-mode');
+        await html2pdf().set(opt).from(element).save();
+      } catch (err) {
+        console.error('PDF generation failed:', err);
+        alert('Gagal membuat PDF. Silakan coba lagi.');
+      } finally {
+        document.body.classList.remove('pdf-mode');
+        pdfBtn.classList.remove('loading');
+        pdfOverlay.classList.remove('active');
+      }
     });
   </script>
 

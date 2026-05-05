@@ -899,10 +899,15 @@
       .hero-label { color: var(--green-600) !important; opacity: 1 !important; }
       .hero-meta { color: var(--text-body) !important; }
       .hero-meta strong { color: var(--green-800) !important; }
-      /* sections */
+      /* sections — each starts on a new page; long content flows naturally */
       .section {
         padding: 1.5rem 0 !important;
-        page-break-inside: avoid;
+        page-break-before: always;
+        page-break-inside: auto;
+      }
+      /* first section after hero cover: no extra page break */
+      .section:first-of-type {
+        page-break-before: auto;
       }
       .container { max-width: 100% !important; padding: 0 !important; }
       /* fade-up reset */

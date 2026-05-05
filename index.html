@@ -899,15 +899,39 @@
       .hero-label { color: var(--green-600) !important; opacity: 1 !important; }
       .hero-meta { color: var(--text-body) !important; }
       .hero-meta strong { color: var(--green-800) !important; }
-      /* sections — each starts on a new page; long content flows naturally */
+      /* sections */
       .section {
         padding: 1.5rem 0 !important;
-        page-break-before: always;
         page-break-inside: auto;
       }
-      /* first section after hero cover: no extra page break */
-      .section:first-of-type {
-        page-break-before: auto;
+      /* prevent items from splitting across pages */
+      .section-header,
+      .rule-group,
+      .rule-group-title,
+      .rule-list li,
+      .info-card,
+      .target-item,
+      .naskah-card,
+      .penilaian-card,
+      .penilaian-item,
+      .award-item,
+      .callout,
+      .contact-card,
+      .vm-block,
+      .vm-section,
+      .misi-list li,
+      .prose p,
+      .note-text {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      /* keep heading with its first content */
+      .section-header {
+        page-break-after: avoid !important;
+      }
+      .rule-group-title,
+      .h3 {
+        page-break-after: avoid !important;
       }
       .container { max-width: 100% !important; padding: 0 !important; }
       /* fade-up reset */

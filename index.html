@@ -811,17 +811,9 @@
       box-shadow: 0 12px 40px rgba(30, 77, 53, 0.45);
       background: linear-gradient(135deg, var(--green-600), var(--green-700));
     }
-    .pdf-btn:active {
-      transform: translateY(-1px);
-    }
-    .pdf-btn svg {
-      width: 18px; height: 18px;
-      flex-shrink: 0;
-    }
-    .pdf-btn.loading {
-      pointer-events: none;
-      opacity: 0.8;
-    }
+    .pdf-btn:active { transform: translateY(-1px); }
+    .pdf-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .pdf-btn.loading { pointer-events: none; opacity: 0.8; }
     .pdf-btn.loading .btn-text { display: none; }
     .pdf-btn .btn-loading { display: none; }
     .pdf-btn.loading .btn-loading { display: inline-flex; align-items: center; gap: 0.5rem; }
@@ -844,124 +836,7 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    .pdf-btn-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* ========== PDF MODE STYLES ========== */
-    body.pdf-mode .hero,
-    body.pdf-mode .nav-bar,
-    body.pdf-mode .hero-scroll,
-    body.pdf-mode .botanical-divider,
-    body.pdf-mode .contact-section,
-    body.pdf-mode .footer,
-    body.pdf-mode .pdf-btn,
-    body.pdf-mode .pdf-btn-overlay {
-      display: none !important;
-    }
-    body.pdf-mode {
-      background: white;
-      color: #1a2e23;
-    }
-    body.pdf-mode .section {
-      padding: 1.5rem 0;
-      page-break-inside: avoid;
-    }
-    body.pdf-mode .rule-group,
-    body.pdf-mode .penilaian-card,
-    body.pdf-mode .naskah-card,
-    body.pdf-mode .info-card {
-      page-break-inside: avoid;
-    }
-    body.pdf-mode .container {
-      max-width: 100%;
-      padding: 0;
-    }
-    body.pdf-mode .section-header {
-      margin-bottom: 1rem;
-    }
-    body.pdf-mode .prose p {
-      text-align: left;
-    }
-    body.pdf-mode .info-card,
-    body.pdf-mode .target-item,
-    body.pdf-mode .rule-list li,
-    body.pdf-mode .naskah-card,
-    body.pdf-mode .penilaian-item,
-    body.pdf-mode .award-item,
-    body.pdf-mode .contact-card {
-      box-shadow: none;
-      border: 1px solid #d4e8d9;
-    }
-    body.pdf-mode .fade-up {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* PDF Cover Page */
-    .pdf-cover {
-      display: none;
-    }
-    body.pdf-mode .pdf-cover {
-      display: block;
-      text-align: center;
-      padding: 3rem 0 2rem;
-      page-break-after: always;
-    }
-    .pdf-cover .cover-ornament {
-      width: 40px;
-      height: 3px;
-      background: var(--green-500);
-      border-radius: 2px;
-      margin: 0 auto 1.5rem;
-    }
-    .pdf-cover .cover-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--green-600);
-      margin-bottom: 0.75rem;
-    }
-    .pdf-cover .cover-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--green-900);
-      line-height: 1.1;
-      margin-bottom: 0.3rem;
-    }
-    .pdf-cover .cover-theme {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: var(--green-600);
-      margin-bottom: 2rem;
-    }
-    .pdf-cover .cover-meta {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-    .pdf-cover .cover-meta strong {
-      color: var(--text-dark);
-    }
-
-    /* PDF Footer on every page */
-    .pdf-page-footer {
-      display: none;
-    }
-    body.pdf-mode .pdf-page-footer {
-      display: block;
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--border);
-      margin-top: 1rem;
-    }
+    .pdf-btn-overlay.active { opacity: 1; pointer-events: auto; }
 
     @media (max-width: 640px) {
       .pdf-btn {
@@ -990,20 +865,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ==================== PDF COVER (hidden in web, shown in PDF) ==================== -->
-  <div class="pdf-cover">
-    <div class="cover-ornament"></div>
-    <p class="cover-label">Petunjuk Teknis</p>
-    <h1 class="cover-title">FTRN #5</h1>
-    <p class="cover-theme">Temu Taut</p>
-    <div class="cover-meta">
-      <strong>Festival Teater Remaja Nusantara #5</strong><br>
-      Agustus 2026<br>
-      Himpunan Mahasiswa Jurusan Teater<br>
-      Institut Seni Indonesia (ISI) Yogyakarta
-    </div>
-  </div>
 
   <!-- ==================== HERO ==================== -->
   <section class="hero">
@@ -1519,9 +1380,6 @@
     </div>
   </section>
 
-  <!-- ==================== PDF PAGE FOOTER (shown in PDF only) ==================== -->
-  <div class="pdf-page-footer">FTRN #5 2026 &mdash; Petunjuk Teknis &mdash; Festival Teater Remaja Nusantara</div>
-
   <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
     Festival Teater Remaja Nusantara #5 &mdash; Institut Seni Indonesia Yogyakarta &mdash; 2026
@@ -1540,8 +1398,8 @@
     <span class="btn-loading"><span class="spinner"></span> Membuat PDF...</span>
   </button>
 
-  <!-- html2pdf.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
@@ -1590,7 +1448,7 @@
       });
     });
 
-    // === PDF GENERATION ===
+    // === PDF GENERATION (jsPDF - programmatic, not screenshot) ===
     const pdfBtn = document.getElementById('pdfBtn');
     const pdfOverlay = document.getElementById('pdfOverlay');
 
@@ -1598,41 +1456,363 @@
       pdfBtn.classList.add('loading');
       pdfOverlay.classList.add('active');
 
-      // Wait for fonts to be ready
-      await document.fonts.ready;
-
-      // Small delay to let overlay render
-      await new Promise(r => setTimeout(r, 100));
-
-      const element = document.body;
-
-      const opt = {
-        margin:       [12, 14, 16, 14],
-        filename:     'Juknis-FTRN5-2026.pdf',
-        image:        { type: 'jpeg', quality: 0.95 },
-        html2canvas:  {
-          scale: 2,
-          useCORS: true,
-          letterRendering: true,
-          scrollY: 0,
-          windowWidth: 900
-        },
-        jsPDF:        {
-          unit: 'mm',
-          format: 'a4',
-          orientation: 'portrait'
-        },
-        pagebreak:    { mode: ['css', 'legacy'], before: '.section' }
-      };
-
       try {
-        document.body.classList.add('pdf-mode');
-        await html2pdf().set(opt).from(element).save();
+        await new Promise(r => setTimeout(r, 150));
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+        const PAGE_W = 210, PAGE_H = 297;
+        const ML = 20, MR = 20, MT = 20, MB = 25;
+        const CW = PAGE_W - ML - MR;
+        const G700 = [39, 103, 73], G800 = [30, 77, 53], G900 = [26, 58, 42];
+        const G500 = [56, 161, 105], G600 = [47, 187, 120];
+        const TBODY = [55, 74, 63], TDARK = [26, 46, 35], TMUTED = [95, 122, 107];
+        const BORDER = [212, 232, 217], G50 = [240, 255, 244];
+        let y;
+
+        function footer() {
+          doc.setFontSize(7).setTextColor(...TMUTED);
+          doc.text('FTRN #5 2026  |  Petunjuk Teknis  |  Festival Teater Remaja Nusantara', PAGE_W / 2, PAGE_H - 12, { align: 'center' });
+          doc.setDrawColor(...BORDER).setLineWidth(0.3).line(ML, PAGE_H - 16, PAGE_W - MR, PAGE_H - 16);
+        }
+        function checkPage(need) {
+          if (y + (need || 10) > PAGE_H - MB) {
+            footer();
+            doc.addPage();
+            y = MT;
+          }
+        }
+        function sectionTitle(letter, title) {
+          checkPage(22);
+          doc.setFillColor(...G700).roundRect(ML, y, 11, 11, 2, 'F');
+          doc.setFont('helvetica', 'bold').setFontSize(11).setTextColor(255, 255, 255);
+          doc.text(letter, ML + 5.5, y + 7.8, { align: 'center' });
+          doc.setFont('helvetica', 'bold').setFontSize(15).setTextColor(...G900);
+          doc.text(title, ML + 16, y + 8);
+          doc.setFillColor(...G600).rect(ML + 16, y + 11, 28, 1.2, 'F');
+          y += 18;
+        }
+        function bodyText(text, indent) {
+          indent = indent || 0;
+          checkPage(12);
+          doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(...TBODY);
+          const lines = doc.splitTextToSize(text, CW - indent);
+          for (let i = 0; i < lines.length; i++) {
+            checkPage(6);
+            doc.text(lines[i], ML + indent, y);
+            y += 5.5;
+          }
+        }
+        function boldText(text) {
+          checkPage(7);
+          doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...TDARK);
+          doc.text(text, ML, y);
+          y += 6;
+        }
+        function subGroupTitle(text) {
+          checkPage(10);
+          doc.setFillColor(...G500).roundRect(ML, y, 3.5, 3.5, 1, 'F');
+          doc.setFont('helvetica', 'bold').setFontSize(11).setTextColor(...G800);
+          doc.text(text, ML + 7, y + 3.2);
+          y += 9;
+        }
+        function ruleItem(label, text) {
+          checkPage(15);
+          doc.setFillColor(...G50).setDrawColor(...BORDER).roundRect(ML, y, CW, 1.5, 0, 'F');
+          y += 3;
+          if (label) {
+            doc.setFont('helvetica', 'bold').setFontSize(7.5).setTextColor(...G700);
+            doc.text(label.toUpperCase(), ML + 4, y);
+            y += 4;
+          }
+          doc.setFont('helvetica', 'normal').setFontSize(9.5).setTextColor(...TBODY);
+          const lines = doc.splitTextToSize(text, CW - 8);
+          for (const line of lines) {
+            checkPage(6);
+            doc.text(line, ML + 4, y);
+            y += 5;
+          }
+          doc.setDrawColor(...BORDER).setLineWidth(0.3).roundedRect(ML, y - (label ? 5 : 5) - (lines.length * 5) + (label ? 8.5 : 8.5) - 4, CW, lines.length * 5 + (label ? 8.5 : 6) + 2, 1.5, 1.5, 'S');
+          y += 3;
+        }
+        function calloutBox(title, text) {
+          checkPage(18);
+          doc.setFillColor(...G50).setDrawColor(...BORDER);
+          doc.roundedRect(ML, y, CW, 1, 0, 'F');
+          y += 2;
+          doc.setFillColor(255,255,255);
+          doc.setDrawColor(...BORDER).setLineWidth(0.3);
+          const lines = doc.splitTextToSize(text, CW - 10);
+          const boxH = 7 + lines.length * 5 + 4;
+          doc.roundedRect(ML, y, CW, boxH, 1.5, 1.5, 'FD');
+          doc.setFillColor(...G500).rect(ML, y, 3, boxH, 'F');
+          doc.setFont('helvetica', 'bold').setFontSize(9).setTextColor(...G800);
+          doc.text(title, ML + 7, y + 5.5);
+          y += 7;
+          doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...TBODY);
+          for (const line of lines) {
+            doc.text(line, ML + 7, y);
+            y += 5;
+          }
+          y += 4;
+        }
+
+        // ===== COVER PAGE =====
+        doc.setFillColor(...G900).rect(0, 0, PAGE_W, PAGE_H, 'F');
+        doc.setFillColor(56, 161, 105);
+        doc.circle(PAGE_W / 2, 115, 60, 'F');
+        doc.setFillColor(...G900);
+        doc.circle(PAGE_W / 2, 115, 55, 'F');
+        doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...G600);
+        doc.text('PETUNJUK TEKNIS', PAGE_W / 2, 100, { align: 'center', characterSpacing: 3 });
+        doc.setFont('helvetica', 'bold').setFontSize(42).setTextColor(255, 255, 255);
+        doc.text('FTRN #5', PAGE_W / 2, 120, { align: 'center' });
+        doc.setFont('helvetica', 'italic').setFontSize(16).setTextColor(...G600);
+        doc.text('Temu Taut', PAGE_W / 2, 132, { align: 'center' });
+        doc.setFillColor(...G600).rect(PAGE_W / 2 - 16, 142, 32, 1, 'F');
+        doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(200, 210, 205);
+        doc.text('Festival Teater Remaja Nusantara #5', PAGE_W / 2, 158, { align: 'center' });
+        doc.text('Agustus 2026', PAGE_W / 2, 166, { align: 'center' });
+        doc.text('Himpunan Mahasiswa Jurusan Teater', PAGE_W / 2, 174, { align: 'center' });
+        doc.text('Institut Seni Indonesia (ISI) Yogyakarta', PAGE_W / 2, 182, { align: 'center' });
+        doc.setFontSize(7).setTextColor(150, 170, 160);
+        doc.text('Jl. Parangtritis Km. 6,5, Bantul, D.I. Yogyakarta 55188', PAGE_W / 2, 194, { align: 'center' });
+
+        // ===== PAGE 2: CONTENT =====
+        doc.addPage();
+        y = MT;
+
+        // A. PENDAHULUAN
+        sectionTitle('A', 'Pendahuluan');
+        bodyText('Festival teater ini hadir sebagai ruang bagi remaja untuk membangun kembali kesadaran akan lingkungan dan nilai-nilai budaya lokal yang mulai luntur. Remaja masa kini hidup dalam ekosistem budaya yang berkembang pesat dan mempengaruhi cara berpikir, berekspresi, serta berinteraksi. Penyempitan ruang apresiasi seni, khususnya teater, menandakan terganggunya keseimbangan hubungan manusia dengan lingkungan sosial dan kulturalnya.');
+        y += 2;
+        bodyText('Festival teater ini dihadirkan sebagai ruang pemulihan ekosistem budaya melalui pendekatan eco theatre, yang memandang teater bukan sekadar pertunjukan, melainkan ruang hidup bersama untuk membangun kesadaran ekologis, keberlanjutan nilai, serta relasi yang selaras antara manusia, budaya, dan lingkungannya di tengah arus digital yang terus berubah.');
+        y += 2;
+        bodyText('Atas dasar pemikiran tersebut, kami bermaksud melaksanakan kegiatan yang dikemas dalam FTRN #5 2026 mengangkat tema \u201cTemu Taut\u201d dengan harapan menjadi ruang bertemu dan bertaut bagi remaja dari berbagai daerah untuk saling mengenal, bertukar gagasan, serta mempertemukan keberagaman budaya Nusantara dalam satu panggung teater.');
+        y += 6;
+
+        // B. SASARAN
+        sectionTitle('B', 'Sasaran Kegiatan');
+        const sasaran = [
+          'Pelajar SMA/SMK Sederajat se-Indonesia',
+          'Kelompok Teater se-Indonesia',
+          'Asrama Daerah Mahasiswa di D.I. Yogyakarta',
+          'Civitas Akademika Kampus ISI Yogyakarta',
+          'Lembaga/Sanggar Kesenian yang tersebar di D.I. Yogyakarta',
+          'Masyarakat Umum agar dapat mengenal kesenian Teater lebih dekat',
+          'Perusahaan/Instansi yang berpartisipasi sebagai sponsor'
+        ];
+        sasaran.forEach((s, i) => {
+          checkPage(10);
+          doc.setFillColor(...G50).setDrawColor(...BORDER).setLineWidth(0.3);
+          doc.roundedRect(ML, y, CW, 9, 1.5, 1.5, 'FD');
+          doc.setFillColor(...G50).setDrawColor(...BORDER);
+          doc.roundRect(ML + 3, y + 2, 6, 5, 1, 'FD');
+          doc.setFont('helvetica', 'bold').setFontSize(8).setTextColor(...G700);
+          doc.text(String(i + 1), ML + 6, y + 5.5, { align: 'center' });
+          doc.setFont('helvetica', 'normal').setFontSize(9.5).setTextColor(...TBODY);
+          doc.text(s, ML + 13, y + 6);
+          y += 12;
+        });
+        y += 4;
+
+        // C. WAKTU & TEMPAT
+        sectionTitle('C', 'Waktu & Tempat');
+        checkPage(30);
+        doc.setFillColor(255,255,255).setDrawColor(...BORDER).setLineWidth(0.3);
+        doc.roundedRect(ML, y, CW / 2 - 2, 28, 2, 2, 'FD');
+        doc.roundedRect(ML + CW / 2 + 2, y, CW / 2 - 2, 28, 2, 2, 'FD');
+        doc.setFont('helvetica', 'bold').setFontSize(7).setTextColor(...TMUTED);
+        doc.text('HARI / TANGGAL', ML + 4, y + 6);
+        doc.text('WAKTU', ML + CW / 2 + 6, y + 6);
+        doc.setFont('helvetica', 'bold').setFontSize(11).setTextColor(...TDARK);
+        doc.text('3 - 8 Agustus 2026', ML + 4, y + 14);
+        doc.text('14.00 - Selesai', ML + CW / 2 + 6, y + 14);
+        doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...TMUTED);
+        doc.text('Senin - Sabtu', ML + 4, y + 20);
+        doc.text('WIB', ML + CW / 2 + 6, y + 20);
+        y += 34;
+        checkPage(28);
+        doc.setFillColor(255,255,255).setDrawColor(...BORDER);
+        doc.roundedRect(ML, y, CW, 24, 2, 2, 'FD');
+        doc.setFont('helvetica', 'bold').setFontSize(7).setTextColor(...TMUTED);
+        doc.text('TEMPAT', ML + 4, y + 6);
+        doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...TDARK);
+        doc.text('Jurusan Teater, Fakultas Seni Pertunjukan', ML + 4, y + 13);
+        doc.text('Institut Seni Indonesia (ISI) Yogyakarta', ML + 4, y + 20);
+        y += 30;
+
+        // D. TUJUAN
+        sectionTitle('D', 'Tujuan Pelaksanaan');
+        checkPage(15);
+        doc.setFillColor(255,255,255).setDrawColor(...BORDER);
+        doc.roundedRect(ML, y, CW, 14, 2, 2, 'FD');
+        doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...G800);
+        doc.text('Visi', ML + 6, y + 7);
+        doc.setFont('helvetica', 'italic').setFontSize(9.5).setTextColor(...TBODY);
+        doc.text('Membentuk insan seni Indonesia yang inovatif dan memiliki daya cipta tinggi dalam dunia teater.', ML + 6, y + 12);
+        y += 18;
+
+        boldText('Misi:');
+        y += 1;
+        const misi = [
+          'Menyelenggarakan kompetisi teater remaja tingkat SMA/sederajat yang berskala nasional dengan menerapkan standar penilaian profesional.',
+          'Memfasilitasi ruang belajar dan diskusi bersama seniman untuk mendorong eksplorasi pementasan teater yang inovatif di kalangan peserta.',
+          'Menciptakan lingkungan interaksi antar-peserta.',
+          'Menyediakan kegiatan pendukung yang menekankan pada disiplin teater.'
+        ];
+        misi.forEach(m => {
+          checkPage(10);
+          doc.setFont('helvetica', 'normal').setFontSize(9.5).setTextColor(...TBODY);
+          const lines = doc.splitTextToSize(m, CW - 8);
+          doc.text('\u2713', ML + 2, y);
+          for (const line of lines) {
+            checkPage(6);
+            doc.text(line, ML + 8, y);
+            y += 5;
+          }
+          y += 2;
+        });
+        y += 6;
+
+        // F. KETENTUAN UMUM
+        sectionTitle('F', 'Ketentuan Umum Peserta Lomba');
+
+        subGroupTitle('1. Pendaftaran Administrasi');
+        ruleItem('Wajib', 'Peserta diwajibkan mengisi Surat Pernyataan kesanggupan berupa perizinan mengikuti rangkaian kegiatan FTRN #5 dengan bermaterai Rp 10.000,00 yang diketahui oleh Pembina Teater dan di-upload dalam Google Form.');
+        ruleItem('Wajib', 'Peserta wajib mengisi formulir identitas dengan format surat yang sudah disediakan panitia.');
+        ruleItem('Biaya', 'Membayar administrasi pendaftaran sebesar Rp 250.000,- / kelompok.');
+        y += 2;
+        calloutBox('Fasilitas yang didapatkan:', '\u2713 Mendapatkan seminar online tentang materi keaktoran bersama seniman profesional (maks. 10 orang/kelompok) dengan e-sertifikat.\n\u2713 Seluruh peserta mendapatkan e-sertifikat sebagai peserta seleksi FTRN #5 atas nama sekolah atau kelompoknya.');
+        ruleItem('Upload', 'Mengunggah bukti transfer administrasi peserta dalam Google Form pendaftaran.');
+        ruleItem('Upload', 'Mengunggah CV kelompok dalam Google Form pendaftaran.');
+        ruleItem('Berkas', 'Setiap kelompok wajib mengisi berkas pendaftaran dari panitia melalui link drive yang disediakan.');
+        ruleItem('Deadline', 'Batas pengumpulan persyaratan dan pembayaran administrasi paling lambat pada Tanggal 18 Mei 2026.');
+        y += 4;
+
+        subGroupTitle('2. Pendaftaran Karya');
+        calloutBox('Deadline karya:', 'Paling lambat 4 Juni 2026 dengan catatan sudah menyelesaikan administrasi.');
+        boldText('Peserta wajib memilih salah satu naskah berikut:');
+        y += 2;
+        const naskah = [
+          ['Makan Malam', 'Karya Aziz Azthar'],
+          ['Tuhan Tolong Bunuh Emak', 'Karya Yessy Natalia'],
+          ['Penumpang Asing', 'Karya Julia Arungan'],
+          ['Panen Anak', 'Karya Manik Sukadana']
+        ];
+        naskah.forEach(([title, author]) => {
+          checkPage(10);
+          doc.setFillColor(255,255,255).setDrawColor(...BORDER);
+          doc.roundedRect(ML, y, CW, 10, 1.5, 1.5, 'FD');
+          doc.setFillColor(...G50).roundRect(ML + 3, y + 2, 6, 6, 1, 'F');
+          doc.setFont('helvetica', 'bold').setFontSize(9.5).setTextColor(...TDARK);
+          doc.text(title, ML + 13, y + 5.5);
+          doc.setFont('helvetica', 'italic').setFontSize(8).setTextColor(...TMUTED);
+          doc.text(author, ML + 13, y + 9);
+          y += 13;
+        });
+        y += 1;
+        doc.setFont('helvetica', 'italic').setFontSize(8).setTextColor(...TMUTED);
+        doc.text('* Pilihan naskah akan dikirimkan melalui email kepada kelompok yang sudah melakukan registrasi.', ML, y);
+        y += 6;
+
+        ruleItem('Fragmen', 'Peserta diperbolehkan untuk memilih bagian dari Fragmen naskah tanpa merubah konteks naskah.');
+        ruleItem('Video', 'Peserta mengunggah karya berbentuk video dengan resolusi minimal 720p, durasi maksimal 10 menit ke YouTube dengan judul video NAMA SEKOLAH-JUDUL NASKAH-FTRN #5 dan mengumpulkan link melalui email ftrn@students.isi.ac.id.');
+        ruleItem('Audio', 'Audio dari video harus terdengar jelas.');
+        ruleItem('Hak Cipta', 'Peserta dilarang menggunakan aset yang melanggar hak cipta.');
+        y += 4;
+
+        subGroupTitle('3. Kriteria Penilaian');
+        // Online
+        checkPage(20);
+        doc.setFillColor(...G700).rect(ML, y, CW, 8, 'F');
+        doc.setFont('helvetica', 'bold').setFontSize(9).setTextColor(255,255,255);
+        doc.text('Tahap Online', ML + 4, y + 5.5);
+        y += 10;
+        const onlineKriteria = [['Keaktoran', '65%'], ['Penyutradaraan', '20%'], ['Artistik', '15%']];
+        const colW = CW / 3;
+        onlineKriteria.forEach(([label, val], i) => {
+          const x = ML + i * colW + 1;
+          doc.setFillColor(...G50).setDrawColor(...BORDER).setLineWidth(0.2);
+          doc.roundedRect(x, y, colW - 2, 9, 1, 1, 'FD');
+          doc.setFont('helvetica', 'normal').setFontSize(8.5).setTextColor(...TBODY);
+          doc.text(label, x + 3, y + 5.5);
+          doc.setFont('helvetica', 'bold').setFontSize(9).setTextColor(...G700);
+          doc.text(val, x + colW - 10, y + 5.5, { align: 'right' });
+        });
+        y += 13;
+        // Final
+        checkPage(20);
+        doc.setFillColor(...G700).rect(ML, y, CW, 8, 'F');
+        doc.setFont('helvetica', 'bold').setFontSize(9).setTextColor(255,255,255);
+        doc.text('Tahap Final', ML + 4, y + 5.5);
+        y += 10;
+        const finalKriteria = [['Keaktoran', '35%'], ['Penyutradaraan', '25%'], ['Unsur Panggung', '15%'], ['Dramaturgi', '25%']];
+        const colW4 = CW / 4;
+        finalKriteria.forEach(([label, val], i) => {
+          const x = ML + i * colW4 + 0.5;
+          doc.setFillColor(...G50).setDrawColor(...BORDER).setLineWidth(0.2);
+          doc.roundedRect(x, y, colW4 - 1, 9, 1, 1, 'FD');
+          doc.setFont('helvetica', 'normal').setFontSize(7.5).setTextColor(...TBODY);
+          doc.text(label, x + 2, y + 5.5);
+          doc.setFont('helvetica', 'bold').setFontSize(8.5).setTextColor(...G700);
+          doc.text(val, x + colW4 - 6, y + 5.5, { align: 'right' });
+        });
+        y += 13;
+        doc.setFont('helvetica', 'italic').setFontSize(8).setTextColor(...TMUTED);
+        doc.text('* Unsur Panggung meliputi: Artistik, Lighting, Make-up, Kostum, Musik', ML, y);
+        y += 6;
+
+        subGroupTitle('4. Kejuaraan, Pengumuman & Penerimaan Penghargaan');
+        doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...TMUTED);
+        doc.text('Berdasarkan penilaian dewan juri akan diambil:', ML, y);
+        y += 6;
+        const awards = ['Juara 1', 'Juara 2', 'Juara 3', 'Aktris Terbaik', 'Aktor Terbaik', 'Artistik Terbaik', 'Sutradara Terbaik', 'Skenografi Terbaik'];
+        const colA = CW / 4;
+        awards.forEach((a, i) => {
+          if (i % 4 === 0 && i > 0) y += 1;
+          if (i % 4 === 0) checkPage(12);
+          const x = ML + (i % 4) * colA + 1;
+          doc.setFillColor(255,255,255).setDrawColor(...BORDER).setLineWidth(0.2);
+          doc.roundedRect(x, y, colA - 2, 11, 1, 1, 'FD');
+          doc.setFont('helvetica', 'bold').setFontSize(8.5).setTextColor(...TDARK);
+          doc.text(a, x + (colA - 2) / 2, y + 7, { align: 'center' });
+          if (i % 4 === 3) y += 14;
+        });
+        y += 14;
+        calloutBox('', 'Keputusan dewan juri bersifat mutlak dan dapat dipertanggungjawabkan. Pengumuman pemenang, pemberian piagam penghargaan, dan penyerahan piala dilaksanakan pada hari terakhir festival teater.');
+        y += 4;
+
+        // G. KETENTUAN PELAKSANAAN
+        sectionTitle('G', 'Ketentuan Pelaksanaan');
+        ruleItem('Peserta', 'Peserta yang mengikuti FTRN #5 2026 adalah peserta yang telah lolos tahap Seleksi Online FTRN #5 2026.');
+        ruleItem('Status', 'Peserta merupakan siswa-siswi yang masih berstatus sebagai siswa aktif.');
+        ruleItem('Kontingen', 'Panitia hanya menanggung fasilitas 10 orang dari setiap kontingen.');
+        ruleItem('Durasi', 'Durasi pertunjukan maksimal 60 menit dan setting Up maksimal 45 menit.');
+        ruleItem('Naskah', 'Peserta membawakan naskah yang sama dengan naskah yang digunakan saat kurasi.');
+        ruleItem('Pemain', 'Apabila ada pergantian pemain maka skors dalam penilaian di aspek keaktoran akan dikurangi 50%.');
+        ruleItem('Bentuk', 'Bentuk pertunjukan adalah Teater Realis.');
+        y += 4;
+
+        // KONTAK
+        sectionTitle('H', 'Informasi Kontak');
+        checkPage(20);
+        doc.setFillColor(...G800).rect(ML, y, CW, 22, 'F');
+        doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(255,255,255);
+        doc.text('Jika ada pertanyaan seputar FTRN #5 2026, hubungi panitia:', ML + 5, y + 7);
+        doc.setFont('helvetica', 'normal').setFontSize(9.5);
+        doc.text('Lita: 0857-0754-2986', ML + 5, y + 14);
+        doc.text('Suci: 0819-0476-0612', ML + 5, y + 19);
+        y += 28;
+        doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(...TBODY);
+        doc.text('Email: ftrn@students.isi.ac.id', ML, y);
+
+        footer();
+        doc.save('Juknis-FTRN5-2026.pdf');
       } catch (err) {
         console.error('PDF generation failed:', err);
         alert('Gagal membuat PDF. Silakan coba lagi.');
       } finally {
-        document.body.classList.remove('pdf-mode');
         pdfBtn.classList.remove('loading');
         pdfOverlay.classList.remove('active');
       }

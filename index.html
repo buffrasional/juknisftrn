@@ -862,6 +862,69 @@
       padding: 0.3rem 0.75rem;
       border-radius: 100px;
     }
+
+    /* ========== PRINT STYLES ========== */
+    @media print {
+      @page {
+        size: A4;
+        margin: 18mm 15mm 20mm 15mm;
+      }
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      body {
+        background: #fff !important;
+        overflow: visible !important;
+      }
+      /* hide non-content */
+      .nav-bar, .hero-scroll, .pdf-btn, .pdf-btn-overlay, .botanical-divider, .footer { display: none !important; }
+      /* hero becomes cover page */
+      .hero {
+        min-height: auto !important;
+        min-height: unset !important;
+        height: 100vh;
+        page-break-after: always;
+        background: #1a3a2a !important;
+      }
+      .hero::before { display: none !important; }
+      .hero-content { padding: 3rem 1.5rem !important; }
+      .hero h1 { font-size: 3.5rem !important; }
+      /* sections */
+      .section {
+        padding: 1.5rem 0 !important;
+        page-break-inside: avoid;
+      }
+      .container { max-width: 100% !important; padding: 0 !important; }
+      /* fade-up reset */
+      .fade-up { opacity: 1 !important; transform: none !important; }
+      /* remove hover effects */
+      .info-card, .target-item, .naskah-card, .award-item, .contact-card, .rule-list li {
+        box-shadow: none !important;
+        transform: none !important;
+        border-color: var(--border) !important;
+      }
+      .info-card::before { opacity: 0 !important; }
+      /* grids force single column */
+      .info-grid, .naskah-grid, .award-grid {
+        grid-template-columns: 1fr !important;
+      }
+      /* contact */
+      .contact-section {
+        background: #1e4d35 !important;
+        padding: 2rem 1.5rem !important;
+        page-break-inside: avoid;
+      }
+      .contact-section::before { display: none !important; }
+      /* rule num absolute fix */
+      .rule-list li .rule-num {
+        position: static !important;
+        display: inline-block !important;
+        margin-bottom: 0.3rem !important;
+        font-size: 0.65rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1398,8 +1461,7 @@
     <span class="btn-loading"><span class="spinner"></span> Membuat PDF...</span>
   </button>
 
-  <!-- html2pdf.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- PDF via window.print() -->
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
@@ -1448,237 +1510,9 @@
       });
     });
 
-    // === PDF GENERATION (html2pdf.js - converts HTML to PDF) ===
+    // === PDF DOWNLOAD via Print ===
     const pdfBtn = document.getElementById('pdfBtn');
-    const pdfOverlay = document.getElementById('pdfOverlay');
-
-    pdfBtn.addEventListener('click', async () => {
-      pdfBtn.classList.add('loading');
-      pdfOverlay.classList.add('active');
-
-      try {
-        // Build a clean PDF container from the page content
-        const pdfContent = document.createElement('div');
-        pdfContent.id = 'pdf-content';
-        pdfContent.style.cssText = 'width:210mm;padding:0;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;color:#374a3f;line-height:1.7;background:#fff;';
-
-        // Helper
-        const h = (tag, cls, inner) => {
-          const el = document.createElement(tag);
-          if (cls) el.className = cls;
-          if (inner) el.innerHTML = inner;
-          return el;
-        };
-
-        // ---- COVER PAGE ----
-        const cover = document.createElement('div');
-        cover.style.cssText = 'width:210mm;height:297mm;background:#1a3a2a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;page-break-after:always;';
-        cover.innerHTML = `
-          <p style="font-size:10px;letter-spacing:4px;color:#48bb78;margin-bottom:16px;">PETUNJUK TEKNIS</p>
-          <h1 style="font-size:52px;font-weight:700;margin:0 0 8px;font-family:Playfair Display,serif;">FTRN #5</h1>
-          <p style="font-size:18px;font-style:italic;color:#48bb78;margin-bottom:20px;font-family:Playfair Display,serif;">Temu Taut</p>
-          <div style="width:32px;height:2px;background:#48bb78;margin:0 auto 24px;"></div>
-          <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:4px 0;">Festival Teater Remaja Nusantara #5</p>
-          <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:4px 0;">Agustus 2026</p>
-          <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:4px 0;">Himpunan Mahasiswa Jurusan Teater</p>
-          <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:4px 0;">Institut Seni Indonesia (ISI) Yogyakarta</p>
-          <p style="font-size:8px;color:rgba(255,255,255,0.35);margin-top:16px;">Jl. Parangtritis Km. 6,5, Bantul, D.I. Yogyakarta 55188</p>
-        `;
-        pdfContent.appendChild(cover);
-
-        // ---- CONTENT PAGES ----
-        const content = document.createElement('div');
-        content.style.cssText = 'padding:20mm 20mm 25mm;';
-
-        function addSection(letter, title) {
-          const s = document.createElement('div');
-          s.style.cssText = 'display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;margin-top:28px;page-break-inside:avoid;';
-          s.innerHTML = `<div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#2f855a,#276749);color:#fff;font-family:Playfair Display,serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;">${letter}</div><div><h2 style="font-family:Playfair Display,serif;font-size:18px;font-weight:700;color:#1a3a2a;margin:0;line-height:1.3;">${title}</h2><div style="width:32px;height:3px;background:#48bb78;border-radius:2px;margin-top:6px;"></div></div>`;
-          content.appendChild(s);
-        }
-        function addPara(text) {
-          const p = document.createElement('p');
-          p.style.cssText = 'font-size:10.5px;line-height:1.85;color:#374a3f;text-align:justify;margin-bottom:10px;';
-          p.textContent = text;
-          content.appendChild(p);
-        }
-        function addBold(text) {
-          const p = document.createElement('p');
-          p.style.cssText = 'font-size:10.5px;font-weight:600;color:#1a3a2a;margin:10px 0 6px;';
-          p.textContent = text;
-          content.appendChild(p);
-        }
-        function addSubGroup(text) {
-          const p = document.createElement('p');
-          p.style.cssText = 'font-size:11px;font-weight:600;color:#1e4d35;margin:20px 0 10px;display:flex;align-items:center;gap:8px;page-break-inside:avoid;';
-          p.innerHTML = `<span style="width:8px;height:8px;border-radius:3px;background:#38a169;display:inline-block;flex-shrink:0;"></span>${text}`;
-          content.appendChild(p);
-        }
-        function addRule(label, text) {
-          const d = document.createElement('div');
-          d.style.cssText = 'border:1px solid #d4e8d9;border-radius:8px;padding:10px 12px;margin-bottom:7px;font-size:10px;line-height:1.75;color:#374a3f;page-break-inside:avoid;';
-          if (label) {
-            d.innerHTML = `<span style="font-size:7.5px;font-weight:600;color:#2f855a;letter-spacing:0.05em;text-transform:uppercase;display:block;margin-bottom:3px;">${label}</span>`;
-          }
-          d.innerHTML += text;
-          content.appendChild(d);
-        }
-        function addCallout(text) {
-          const d = document.createElement('div');
-          d.style.cssText = 'background:#f0fff4;border:1px solid #9ae6b4;border-left:4px solid #38a169;border-radius:0 10px 10px 0;padding:10px 14px;font-size:9.5px;line-height:1.75;color:#374a3f;margin:10px 0;page-break-inside:avoid;';
-          d.innerHTML = text;
-          content.appendChild(d);
-        }
-
-        // A. Pendahuluan
-        addSection('A', 'Pendahuluan');
-        addPara('Festival teater ini hadir sebagai ruang bagi remaja untuk membangun kembali kesadaran akan lingkungan dan nilai-nilai budaya lokal yang mulai luntur. Remaja masa kini hidup dalam ekosistem budaya yang berkembang pesat dan mempengaruhi cara berpikir, berekspresi, serta berinteraksi. Penyempitan ruang apresiasi seni, khususnya teater, menandakan terganggunya keseimbangan hubungan manusia dengan lingkungan sosial dan kulturalnya.');
-        addPara('Festival teater ini dihadirkan sebagai ruang pemulihan ekosistem budaya melalui pendekatan eco theatre, yang memandang teater bukan sekadar pertunjukan, melainkan ruang hidup bersama untuk membangun kesadaran ekologis, keberlanjutan nilai, serta relasi yang selaras antara manusia, budaya, dan lingkungannya di tengah arus digital yang terus berubah.');
-        addPara('Atas dasar pemikiran tersebut, kami bermaksud melaksanakan kegiatan yang dikemas dalam FTRN #5 2026 mengangkat tema \u201cTemu Taut\u201d dengan harapan menjadi ruang bertemu dan bertaut bagi remaja dari berbagai daerah untuk saling mengenal, bertukar gagasan, serta mempertemukan keberagaman budaya Nusantara dalam satu panggung teater.');
-
-        // B. Sasaran
-        addSection('B', 'Sasaran Kegiatan');
-        ['Pelajar SMA/SMK Sederajat se-Indonesia','Kelompok Teater se-Indonesia','Asrama Daerah Mahasiswa di D.I. Yogyakarta','Civitas Akademika Kampus ISI Yogyakarta','Lembaga/Sanggar Kesenian yang tersebar di D.I. Yogyakarta','Masyarakat Umum agar dapat mengenal kesenian Teater lebih dekat','Perusahaan/Instansi yang berpartisipasi sebagai sponsor'].forEach((s, i) => {
-          const d = document.createElement('div');
-          d.style.cssText = 'display:flex;align-items:center;gap:10px;border:1px solid #d4e8d9;border-radius:10px;padding:8px 12px;margin-bottom:6px;page-break-inside:avoid;';
-          d.innerHTML = `<span style="flex-shrink:0;width:24px;height:24px;border-radius:6px;background:#f0fff4;border:1px solid #c6f6d5;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#276749;">${i+1}</span><span style="font-size:10px;color:#374a3f;">${s}</span>`;
-          content.appendChild(d);
-        });
-
-        // C. Waktu & Tempat
-        addSection('C', 'Waktu & Tempat');
-        const wt = document.createElement('div');
-        wt.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;';
-        wt.innerHTML = `
-          <div style="border:1px solid #d4e8d9;border-radius:12px;padding:14px;page-break-inside:avoid;"><p style="font-size:7.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#5f7a6b;margin-bottom:4px;">Hari / Tanggal</p><p style="font-size:12px;font-weight:600;color:#1a3a2a;">3 \u2013 8 Agustus 2026</p><p style="font-size:9.5px;color:#5f7a6b;">Senin \u2013 Sabtu</p></div>
-          <div style="border:1px solid #d4e8d9;border-radius:12px;padding:14px;page-break-inside:avoid;"><p style="font-size:7.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#5f7a6b;margin-bottom:4px;">Waktu</p><p style="font-size:12px;font-weight:600;color:#1a3a2a;">14.00 \u2013 Selesai</p><p style="font-size:9.5px;color:#5f7a6b;">WIB</p></div>
-        `;
-        content.appendChild(wt);
-        const loc = document.createElement('div');
-        loc.style.cssText = 'border:1px solid #d4e8d9;border-radius:12px;padding:14px;margin-bottom:10px;page-break-inside:avoid;';
-        loc.innerHTML = `<p style="font-size:7.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#5f7a6b;margin-bottom:4px;">Tempat</p><p style="font-size:10.5px;font-weight:600;color:#1a3a2a;">Jurusan Teater, Fakultas Seni Pertunjukan</p><p style="font-size:10.5px;font-weight:600;color:#1a3a2a;">Institut Seni Indonesia (ISI) Yogyakarta</p><p style="font-size:9.5px;color:#5f7a6b;margin-top:2px;">Jl. Parangtritis Km. 6,5, Glondong, Panggungharjo, Kec. Sewon, Kabupaten Bantul, D.I. Yogyakarta 55188</p>`;
-        content.appendChild(loc);
-
-        // D. Tujuan
-        addSection('D', 'Tujuan Pelaksanaan');
-        const vm = document.createElement('div');
-        vm.style.cssText = 'border:1px solid #d4e8d9;border-radius:12px;overflow:hidden;margin-bottom:10px;page-break-inside:avoid;';
-        vm.innerHTML = `
-          <div style="padding:14px;border-bottom:1px solid #d4e8d9;"><p style="font-size:11px;font-weight:700;color:#1e4d35;margin-bottom:6px;">Visi</p><p style="font-size:10.5px;color:#374a3f;">Membentuk insan seni Indonesia yang inovatif dan memiliki daya cipta tinggi dalam dunia teater.</p></div>
-          <div style="padding:14px;"><p style="font-size:11px;font-weight:700;color:#1e4d35;margin-bottom:8px;">Misi</p>
-          <p style="font-size:10px;color:#374a3f;margin-bottom:6px;">\u2713  Menyelenggarakan kompetisi teater remaja tingkat SMA/sederajat yang berskala nasional dengan menerapkan standar penilaian profesional.</p>
-          <p style="font-size:10px;color:#374a3f;margin-bottom:6px;">\u2713  Memfasilitasi ruang belajar dan diskusi bersama seniman untuk mendorong eksplorasi pementasan teater yang inovatif di kalangan peserta.</p>
-          <p style="font-size:10px;color:#374a3f;margin-bottom:6px;">\u2713  Menciptakan lingkungan interaksi antar-peserta.</p>
-          <p style="font-size:10px;color:#374a3f;">\u2713  Menyediakan kegiatan pendukung yang menekankan pada disiplin teater.</p></div>
-        `;
-        content.appendChild(vm);
-
-        // F. Ketentuan Umum
-        addSection('F', 'Ketentuan Umum Peserta Lomba');
-        addSubGroup('1. Pendaftaran Administrasi');
-        addRule('Wajib', 'Peserta diwajibkan mengisi <strong>Surat Pernyataan kesanggupan</strong> berupa perizinan mengikuti rangkaian kegiatan FTRN #5 dengan bermaterai <strong>Rp 10.000,00</strong> yang diketahui oleh Pembina Teater dan di-upload dalam Google Form.');
-        addRule('Wajib', 'Peserta wajib mengisi formulir identitas dengan format surat yang sudah disediakan panitia.');
-        addRule('Biaya', 'Membayar administrasi pendaftaran sebesar <strong>Rp 250.000,- / kelompok</strong>.');
-        addCallout('<strong>Fasilitas yang didapatkan:</strong><br>\u2713 Mendapatkan seminar online tentang materi keaktoran bersama seniman profesional (maks. 10 orang/kelompok) dengan e-sertifikat.<br>\u2713 Seluruh peserta mendapatkan e-sertifikat sebagai peserta seleksi FTRN #5 atas nama sekolah atau kelompoknya.');
-        addRule('Upload', 'Mengunggah bukti transfer administrasi peserta dalam Google Form pendaftaran.');
-        addRule('Upload', 'Mengunggah CV kelompok dalam Google Form pendaftaran.');
-        addRule('Berkas', 'Setiap kelompok wajib mengisi berkas pendaftaran dari panitia melalui link drive yang disediakan.');
-        addRule('Deadline', 'Batas pengumpulan persyaratan dan pembayaran administrasi paling lambat pada <strong>Tanggal 18 Mei 2026</strong>.');
-
-        addSubGroup('2. Pendaftaran Karya');
-        addCallout('<strong>Deadline karya:</strong> Paling lambat <strong>4 Juni 2026</strong> dengan catatan sudah menyelesaikan administrasi.');
-        addBold('Peserta wajib memilih salah satu naskah berikut:');
-        [['Makan Malam','Karya Aziz Azthar'],['Tuhan Tolong Bunuh Emak','Karya Yessy Natalia'],['Penumpang Asing','Karya Julia Arungan'],['Panen Anak','Karya Manik Sukadana']].forEach(([t, a]) => {
-          const d = document.createElement('div');
-          d.style.cssText = 'display:flex;align-items:center;gap:10px;border:1px solid #d4e8d9;border-radius:10px;padding:10px 12px;margin-bottom:6px;page-break-inside:avoid;';
-          d.innerHTML = `<span style="flex-shrink:0;width:28px;height:28px;border-radius:7px;background:#f0fff4;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><div><p style="font-size:10.5px;font-weight:600;color:#1a2e23;margin:0;">${t}</p><p style="font-size:9px;color:#5f7a6b;font-style:italic;margin:2px 0 0;">${a}</p></div>`;
-          content.appendChild(d);
-        });
-        const nNote = document.createElement('p');
-        nNote.style.cssText = 'font-size:8.5px;color:#5f7a6b;font-style:italic;margin:6px 0 10px;';
-        nNote.textContent = '* Pilihan naskah akan dikirimkan melalui email kepada kelompok yang sudah melakukan registrasi.';
-        content.appendChild(nNote);
-        addRule('Fragmen', 'Peserta diperbolehkan untuk memilih bagian dari <strong>Fragmen naskah</strong> tanpa merubah konteks naskah.');
-        addRule('Video', 'Peserta mengunggah karya berbentuk video dengan resolusi <strong>minimal 720p</strong>, durasi maksimal <strong>10 menit</strong> ke YouTube dengan judul <strong>NAMA SEKOLAH-JUDUL NASKAH-FTRN #5</strong>.');
-        addRule('Audio', 'Audio dari video harus <strong>terdengar jelas</strong>.');
-        addRule('Hak Cipta', 'Peserta dilarang menggunakan aset yang <strong>melanggar hak cipta</strong>.');
-
-        addSubGroup('3. Kriteria Penilaian');
-        // Online criteria
-        const onl = document.createElement('div');
-        onl.style.cssText = 'border:1px solid #d4e8d9;border-radius:12px;overflow:hidden;margin-bottom:10px;page-break-inside:avoid;';
-        onl.innerHTML = `<div style="padding:10px 14px;background:linear-gradient(135deg,#276749,#1e4d35);color:#fff;font-size:10px;font-weight:600;">Tahap Online</div><div style="display:flex;flex-wrap:wrap;padding:10px 14px;gap:6px;"><div style="flex:1;min-width:100px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9.5px;">Keaktoran</span><span style="font-size:10px;font-weight:700;color:#276749;">65%</span></div><div style="flex:1;min-width:100px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9.5px;">Penyutradaraan</span><span style="font-size:10px;font-weight:700;color:#276749;">20%</span></div><div style="flex:1;min-width:100px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9.5px;">Artistik</span><span style="font-size:10px;font-weight:700;color:#276749;">15%</span></div></div>`;
-        content.appendChild(onl);
-        // Final criteria
-        const fin = document.createElement('div');
-        fin.style.cssText = 'border:1px solid #d4e8d9;border-radius:12px;overflow:hidden;margin-bottom:6px;page-break-inside:avoid;';
-        fin.innerHTML = `<div style="padding:10px 14px;background:linear-gradient(135deg,#276749,#1e4d35);color:#fff;font-size:10px;font-weight:600;">Tahap Final</div><div style="display:flex;flex-wrap:wrap;padding:10px 14px;gap:6px;"><div style="flex:1;min-width:80px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;">Keaktoran</span><span style="font-size:10px;font-weight:700;color:#276749;">35%</span></div><div style="flex:1;min-width:80px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;">Penyutradaraan</span><span style="font-size:10px;font-weight:700;color:#276749;">25%</span></div><div style="flex:1;min-width:80px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;">Unsur Panggung</span><span style="font-size:10px;font-weight:700;color:#276749;">15%</span></div><div style="flex:1;min-width:80px;padding:8px 10px;background:#f0fff4;border:1px solid #c6f6d5;border-radius:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;">Dramaturgi</span><span style="font-size:10px;font-weight:700;color:#276749;">25%</span></div></div>`;
-        content.appendChild(fin);
-        const pNote = document.createElement('p');
-        pNote.style.cssText = 'font-size:8.5px;color:#5f7a6b;font-style:italic;margin-bottom:10px;';
-        pNote.textContent = '* Unsur Panggung meliputi: Artistik, Lighting, Make-up, Kostum, Musik';
-        content.appendChild(pNote);
-
-        addSubGroup('4. Kejuaraan, Pengumuman & Penerimaan Penghargaan');
-        addPara('Berdasarkan penilaian dewan juri akan diambil:');
-        const awGrid = document.createElement('div');
-        awGrid.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;';
-        ['Juara 1','Juara 2','Juara 3','Aktris Terbaik','Aktor Terbaik','Artistik Terbaik','Sutradara Terbaik','Skenografi Terbaik'].forEach(a => {
-          const d = document.createElement('div');
-          d.style.cssText = 'border:1px solid #d4e8d9;border-radius:10px;padding:10px;text-align:center;';
-          d.innerHTML = `<p style="font-size:10px;font-weight:600;color:#1a2e23;margin:0;">${a}</p>`;
-          awGrid.appendChild(d);
-        });
-        content.appendChild(awGrid);
-        addCallout('Keputusan dewan juri bersifat <strong>mutlak</strong> dan dapat dipertanggungjawabkan. Pengumuman pemenang, pemberian piagam penghargaan, dan penyerahan piala dilaksanakan pada <strong>hari terakhir festival teater</strong>.');
-
-        // G. Ketentuan Pelaksanaan
-        addSection('G', 'Ketentuan Pelaksanaan');
-        addRule('Peserta', 'Peserta yang mengikuti FTRN #5 2026 adalah peserta yang telah <strong>lolos tahap Seleksi Online</strong> FTRN #5 2026.');
-        addRule('Status', 'Peserta merupakan siswa-siswi yang masih berstatus sebagai <strong>siswa aktif</strong>.');
-        addRule('Kontingen', 'Panitia hanya menanggung fasilitas <strong>10 orang</strong> dari setiap kontingen.');
-        addRule('Durasi', 'Durasi pertunjukan maksimal <strong>60 menit</strong> dan setting Up maksimal <strong>45 menit</strong>.');
-        addRule('Naskah', 'Peserta membawakan naskah yang <strong>sama dengan naskah</strong> yang digunakan saat kurasi.');
-        addRule('Pemain', 'Apabila ada pergantian pemain maka <strong>skors dalam penilaian di aspek keaktoran akan dikurangi 50%</strong>.');
-        addRule('Bentuk', 'Bentuk pertunjukan adalah <strong>Teater Realis</strong>.');
-
-        // H. Kontak
-        addSection('H', 'Informasi Kontak');
-        const kontak = document.createElement('div');
-        kontak.style.cssText = 'background:linear-gradient(135deg,#1e4d35,#1a3a2a);border-radius:12px;padding:18px;color:#fff;';
-        kontak.innerHTML = `<p style="font-size:10px;margin-bottom:8px;color:rgba(255,255,255,0.7);">Jika ada pertanyaan seputar FTRN #5 2026, hubungi panitia:</p><p style="font-size:11px;margin-bottom:4px;">Lita: 0857-0754-2986</p><p style="font-size:11px;margin-bottom:8px;">Suci: 0819-0476-0612</p><p style="font-size:10px;color:rgba(255,255,255,0.7);">Email: ftrn@students.isi.ac.id</p>`;
-        content.appendChild(kontak);
-
-        pdfContent.appendChild(content);
-
-        // Append to body temporarily (hidden)
-        pdfContent.style.position = 'fixed';
-        pdfContent.style.left = '-9999px';
-        pdfContent.style.top = '0';
-        document.body.appendChild(pdfContent);
-
-        // Generate PDF
-        await new Promise(r => setTimeout(r, 200));
-        const opt = {
-          margin: 0,
-          filename: 'Juknis-FTRN5-2026.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: false },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
-        await html2pdf().set(opt).from(pdfContent).save();
-
-        // Cleanup
-        document.body.removeChild(pdfContent);
-      } catch (err) {
-        console.error('PDF generation failed:', err);
-        alert('Gagal membuat PDF. Silakan coba lagi.');
-      } finally {
-        pdfBtn.classList.remove('loading');
-        pdfOverlay.classList.remove('active');
-      }
-    });
+    pdfBtn.addEventListener('click', () => window.print());
   </script>
 
 </body>
